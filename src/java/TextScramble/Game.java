@@ -18,6 +18,8 @@ public class Game {
     private String word;   // the word to be guessed 
     private Random generator; // the random generator
     private String scrambled; // scrambled word
+    private int correctGuesses;
+    private int incorrectGuesses;
     
     //Constructor
     public Game() {
