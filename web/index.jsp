@@ -10,9 +10,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Word Scrambler</title>
+        <link rel="stylesheet" href="styles/main.css"/>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div id="headerImg"><img class="headingImg" src="word-scrambler.svg" width="600"></div>
+        <form action="TextScrambleServlet">
+            <p>Here is a scrambled word. Guess what it says.</p>
+            <p id="word"><strong>word</strong><p>
+            <div class="input"><input class="guessInput" type="text" name="guess" placeholder="Guess"><input class="submitBtn" type="submit"  value="Submit"></div>
+        </form>
+        <div class="footer">
+            Team++ (Jan Patrick Camaclang, Gregory Gonzalez, Faiga Revah, Ryan Westerhoff)
+        </div>
     </body>
 </html>
