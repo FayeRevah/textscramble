@@ -42,7 +42,14 @@ public class Game {
    
     //Checks the user input against the correct word
     public Boolean checkWord(String input){
-        return null;
+        if(input.toLowerCase().equals(this.word.toLowerCase()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     //Takes a String and creates a scrambled copy
