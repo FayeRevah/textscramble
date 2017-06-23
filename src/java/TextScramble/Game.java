@@ -30,7 +30,8 @@ public class Game {
     
     //Initalizes values for a new game
     public void newGame(){
-        
+        word = randomWord();
+        scrambled = scrambleWord(word);
     }
     
     public String getWord(){
