@@ -1,0 +1,103 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 21, 2017, 9:26:17 PM
+    Author     : faigarevah
+*/
+
+.headingImg {
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    margin: auto;
+}
+
+#headerImg{
+    margin: 0 auto;
+    width: 85%;
+}
+
+#instructionsDiv{
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: middle;
+}
+
+body{
+    background-color: #92c9d4;
+}
+
+.guessInput{
+    background-color:#eee;
+    width: 75%;
+    height: 45px;
+    outline: none;
+    color: #0486b1;
+    position: relative;
+    padding-left: 10px;
+    font-family: "Lucida Grande", Tahoma;
+    font-weight: lighter;
+    font-variant: normal;
+    font-size: 16px;
+    border: none;
+    text-indent: 5px;
+}
+
+.submitBtn {
+  border-radius: 0px;
+  border: none;
+  font-family: 'Gill Sans';
+  color: #ffffff;
+  font-size: 20px;
+  background: #ffcc00;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  width: 22%;
+  height: 45px;
+  margin-left: 1%;
+}
+
+.submitBtn:hover{
+    opacity: 0.70;
+    text-decoration: none;
+}
+
+#submitSpan{
+    margin: auto;
+    width: 12%;
+}
+
+.input{
+    margin: auto;
+    width: 52%;
+    padding: 10px;
+}
+
+.footer{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #0486b1;
+    text-align: center;
+    font-size: 10px;
+    font-family: "Lucida Grande", Tahoma;
+    font-weight: lighter;
+    font-variant: normal;
+    text-transform: uppercase;
+    color: #e1e9eb;
+    margin-top: 10px;
+    letter-spacing: 0.3em;
+}
+
+p{
+    text-align: center;
+    margin: auto;
+    font-family: 'Gill Sans', sans-serif;
+    font-size: 30px;
+    padding: 15px;
+}
