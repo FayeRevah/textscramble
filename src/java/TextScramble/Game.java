@@ -20,19 +20,18 @@ public class Game {
     private String scrambled; // scrambled word
     private int correctGuesses;
     private int incorrectGuesses;
-    private int score;
     
     //Constructor
     public Game() {
         generator = new Random();
         word = randomWord();
         scrambled = scrambleWord(word);
-        score = 0;
     }
     
     //Initalizes values for a new game
     public void newGame(){
-        
+        word = randomWord();
+        scrambled = scrambleWord(word);
     }
     
     public String getWord(){
@@ -40,14 +39,6 @@ public class Game {
     }
     public String getScrambledWord(){
         return scrambled;
-    }
-    
-    public int getScore() {
-        return score;
-    }
-    
-    public void setScore(int score) {
-        this.score = score;
     }
    
     //Checks the user input against the correct word
