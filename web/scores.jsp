@@ -16,14 +16,12 @@ Author: Gregory Gonzalez, Team++
         <h1>Scores</h1>
         <table>
           <tr>
-            <th>ID</th>
             <th>Initials</th>
             <th>Time</th>
             <th>High Score</th>
           </tr>
           <c:forEach var="score" items="${scores}">
           <tr>
-            <td>${score.ID}</td>
             <td>${score.initials}</td>
             <td>${score.finalTime}</td>
             <td>${score.score}</td>
