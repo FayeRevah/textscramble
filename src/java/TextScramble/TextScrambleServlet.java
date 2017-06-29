@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 
@@ -28,25 +29,38 @@ public class TextScrambleServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    private Game game = new Game();
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        
+        HttpSession session = request.getSession();
+        Game game = (Game)session.getAttribute("game");
+        int result = 0;
+        if (game==null){
+            // this must be a new session, so we will start a new Game
+            System.out.println("Hangman.  New game.");
+            game = new Game();  // start new game.
+            result=0;
+        }
+        System.out.println("Scramble Result="+result+"\n");
+        /*try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+            /*out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Text Scramble</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>TEXT SCRAMBLE!!" + "</h1>");
-            out.println("<h1>" + "Word: " + game.getWord() + "</h1>");
-            out.println("<h1>" + "Scrambled Word: " + game.getScrambledWord() + "</h1>");
+            //out.println("<h1>" + "Word: " + game.getWord() + "</h1>");
+            //out.println("<h1>" + "Scrambled Word: " + game.getScrambledWord() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        }
+        }*/
+            
+        session.setAttribute("game", game);
+        request.setAttribute("word", game.getScrambledWord());
+        getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

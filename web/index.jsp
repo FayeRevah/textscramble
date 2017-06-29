@@ -16,7 +16,7 @@
         <div id="headerImg"><img class="headingImg" src="word-scrambler.svg" width="600"></div>
         <form action="TextScrambleServlet">
             <p>Here is a scrambled word. Guess what it says.</p>
-            <p id="word"><strong>word</strong><p>
+            <p id="word"><strong><%= request.getAttribute("word")%></strong><p>
             <div class="input"><input class="guessInput" type="text" name="guess" placeholder="Guess"><input class="submitBtn" type="submit"  value="Submit"></div>
         </form>
         <form action="Scores">
