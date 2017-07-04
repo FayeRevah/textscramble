@@ -30,7 +30,7 @@ Author: Gregory Gonzalez, Team++
           </c:forEach>
         </table>
         <div style="text-align: center;">
-            <form action="/TPP_Text_Scramble">
+            <form action="TextScrambleServlet">
                 <button class="submitBtn" type="submit"  value="Play Game">Play Game</button>
             </form>
         </div>
