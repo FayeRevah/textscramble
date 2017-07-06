@@ -50,9 +50,9 @@
             <p id="word"><strong><%= request.getAttribute("word")%></strong><p>
             <div class="input"><input class="guessInput" type="text" name="guess" placeholder="Guess"><input class="submitBtn" type="submit"  value="Submit"></div>
         </form>
-        <form action="Scores">
+        <div align="center"><form action="Scores">
             <input class="submitBtn" type="submit"  value="High Scores">
-        </form>
+            </form></div>
         <div class="footer">
             Team++ (Jan Patrick Camaclang, Gregory Gonzalez, Faiga Revah, Ryan Westerhoff)
         </div>
