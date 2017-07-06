@@ -38,9 +38,17 @@ public class TextScrambleServlet extends HttpServlet {
         int result = 0;
         if (game==null){
             // this must be a new session, so we will start a new Game
-            System.out.println("Hangman.  New game.");
+            System.out.println("Scramble.  New game.");
             game = new Game();  // start new game.
             result=0;
+        } else {
+           String input = request.getParameter("guess");
+           System.out.println("Scramble. guess="+input);
+           if (input==null) {
+               result=0;
+           } //else {
+             //result = game.playGame(input);
+           //}
         }
         System.out.println("Scramble Result="+result+"\n");
         /*try (PrintWriter out = response.getWriter()) {
