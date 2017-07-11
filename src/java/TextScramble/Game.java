@@ -5,6 +5,7 @@
  */
 package TextScramble;
 
+import static java.lang.Math.log;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,40 +16,109 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author West
  */
 public class Game {
+    private static final int MAX_CORRECT = 5; // guesses needed to win
+    private static final int MAX_INCORRECT = 10; // guesses needed to lose
+    private static final int MAX_TOTAL = 15;
     private String word;   // the word to be guessed 
     private Random generator; // the random generator
     private String scrambled; // scrambled word
-    private int correctGuesses;
-    private int incorrectGuesses;
-    
+    private int scoreList[]; // an array to keep track of the time at which the user scored
+    private int score; // the player's current score
+    private int correctGuesses; // tracks this game's correct guesses
+    private int incorrectGuesses; // tracks this game's incorrect guesses
+    private boolean gameWon; // tracks the state of the game
     //Constructor
     public Game() {
         generator = new Random();
-        word = randomWord();
-        scrambled = scrambleWord(word);
+	startNewGame();
     }
     
     //Initalizes values for a new game
-    public void newGame(){
+    public void startNewGame(){
         word = randomWord();
         scrambled = scrambleWord(word);
+        score = 0;
+        correctGuesses = 0;
+        incorrectGuesses = 0;
+        scoreList = new int[MAX_CORRECT];
+        gameWon = false;
+        System.out.println(word);
     }
     
-    public String getWord(){
+    public boolean getGameWon(){
+        return gameWon;
+    }
+    
+    public int getScore(){
+        return score;
+    }
+    
+    private void endGame(){
+        calculateScore();
+    }
+    
+    public String getWord() {
         return word;
     }
-    public String getScrambledWord(){
+
+    public String getScrambledWord() {
         return scrambled;
     }
+    
+    private void calculateScore(){
+        int logVal = 1;
+        for(int i = 0; i < scoreList.length; i++){
+            logVal += scoreList[i];
+        }
+        score = (int) (1000 * log(logVal));
+    }
+    
+    // to be called whenever a guess is made. Assesses game state
+    private int checkState(){
+        if(incorrectGuesses >= MAX_INCORRECT){
+            gameWon = false;
+            endGame();
+            return 3;
+        }else{
+            if(correctGuesses >= MAX_CORRECT){
+                gameWon = true;
+                endGame();
+                return 2;
+            }
+        }
+        return 1;
+    }
+    
+    //returns 1 if game continues
+    //returns 2 if game over and player won
+    //returns 3 if game over and player lost
+    int playGame(String input, int time)
+    {
+        checkWord(input, time);
+        return checkState();
+    }
+
    
     //Checks the user input against the correct word
-    public Boolean checkWord(String input){
-        if(input.toLowerCase().equals(this.word.toLowerCase()))
-        {
+    // time should be the current value of the game timer
+    // if the word is correct this calls the next word and scrambles it
+    public boolean checkWord(String input, int time){
+        if(input.toLowerCase().equals(this.word.toLowerCase())){
+            if(correctGuesses == 0) scoreList[correctGuesses] = time;
+            else if(correctGuesses < MAX_CORRECT) 
+                scoreList[correctGuesses] = time; //- scoreList[correctGuesses - 1];
+
+            correctGuesses++;
+            System.out.println("correct: " + correctGuesses);
+            //checkState();
+            randomWord();
+            scrambled = scrambleWord(word);
             return true;
         }
-        else
-        {
+        else{
+            System.out.println("word: " + word);
+            incorrectGuesses++;
+            checkState();
             return false;
         }
     }
@@ -65,6 +135,7 @@ public class Game {
         }
         return new String(temp);
     }
+
 
     //Retrieves a random word from the DB
     private String randomWord() {
