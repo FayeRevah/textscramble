@@ -41,26 +41,36 @@ public class TextScrambleServlet extends HttpServlet {
             System.out.println("Text Scramble.  New game.");
             game = new Game();  // start new game.
             result=0;
+        } else {
+           String input = request.getParameter("guess");
+           System.out.println("Scramble. guess="+input);
+           if (input==null) {
+               result=0;
+           } else
+           {
+              result = game.playGame(input, 0);
+           }
+           
         }
         System.out.println("Scramble Result="+result+"\n");
-        /*try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            /*out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Text Scramble</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>TEXT SCRAMBLE!!" + "</h1>");
-            //out.println("<h1>" + "Word: " + game.getWord() + "</h1>");
-            //out.println("<h1>" + "Scrambled Word: " + game.getScrambledWord() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }*/
+       
+        if(result == 0 || result == 1)//either no input or a new game
+        {
+            session.setAttribute("game", game);
+            request.setAttribute("word", game.getScrambledWord());
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
+        }
+        if(result == 2)//game won
+        {
+            session.invalidate();
+            getServletContext().getRequestDispatcher("/win.jsp").forward(request,response);
+        }
+        if(result == 3)//game lost
+        {
+            session.invalidate();
+            getServletContext().getRequestDispatcher("/lose.jsp").forward(request,response);
+        }
             
-        session.setAttribute("game", game);
-        request.setAttribute("word", game.getScrambledWord());
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

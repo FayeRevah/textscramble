@@ -31,6 +31,7 @@ public class Game {
 
     public Game() {
         generator = new Random();
+        newGame();
     }
 
     //to be called by handler
@@ -142,6 +143,7 @@ public class Game {
         }
         return new String(temp);
     }
+
 
     //Retrieves a random word from the DB
     private String randomWord() {
