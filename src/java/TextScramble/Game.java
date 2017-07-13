@@ -10,12 +10,13 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * This class contains the rules needed for the text scramble
- * game to function. Any modifications to the rule set must
- * go here.
+ * This class contains the rules needed for the text scramble game to function.
+ * Any modifications to the rule set must go here.
+ *
  * @author West
  */
 public class Game {
+
     private static final int MAX_CORRECT = 5; // guesses needed to win
     private static final int MAX_INCORRECT = 10; // guesses needed to lose
     private String word;   // the word to be guessed 
@@ -25,14 +26,53 @@ public class Game {
     private int score; // the player's current score
     private int correctGuesses; // tracks this game's correct guesses
     private int incorrectGuesses; // tracks this game's incorrect guesses
-    private boolean gameWon; // tracks the state of the game
+    private boolean gameWon = false; // tracks the state of the game
     //Constructor
+
     public Game() {
         generator = new Random();
     }
-    
+
+    //to be called by handler
+    //return values:
+    //1 continue game, guess was either good or bad
+    //2 game has been won
+    //3 game has been lost
+    //4 an error has occured
+    public int playGame(String guess, int gameTime) {
+        
+        if (checkWord(guess, gameTime) == true) {
+            checkState();
+            //1 continue game
+            if (gameWon == false) {
+                word = randomWord();
+                scrambleWord(word);
+                return 1;
+            }
+            
+            //2 game won
+            if (gameWon == true) {
+                calculateScore();
+                return 2;
+            }
+
+        }else{
+            checkState();
+            
+            if(incorrectGuesses >= MAX_INCORRECT){
+                //3 game lost
+                return 3;
+            }else{
+                //1 guess wrong but game continues
+                return 1;
+            }
+        }
+        //Error cather
+        return 0;
+    }
+
     //Initalizes values for a new game
-    public void newGame(){
+    public void newGame() {
         word = randomWord();
         scrambled = scrambleWord(word);
         score = 0;
@@ -40,19 +80,11 @@ public class Game {
         incorrectGuesses = 0;
         gameWon = false;
     }
-    
-    public boolean getGameWon(){
-        return gameWon;
-    }
-    
-    public int getScore(){
+
+    public int getScore() {
         return score;
     }
-    
-    private void endGame(){
-        calculateScore();
-    }
-    
+
     public String getWord() {
         return word;
     }
@@ -60,50 +92,44 @@ public class Game {
     public String getScrambledWord() {
         return scrambled;
     }
-    
-    private void calculateScore(){
+
+    private void calculateScore() {
         int logVal = 1;
-        for(int i = 0; i < scoreList.length; i++){
+        for (int i = 0; i < scoreList.length; i++) {
             logVal += scoreList[i];
         }
         score = (int) (1000 * log(logVal));
     }
-    
+
     // to be called whenever a guess is made. Assesses game state
-    private void checkState(){
-        if(incorrectGuesses >= MAX_INCORRECT){
+    private void checkState() {
+        if (incorrectGuesses >= MAX_INCORRECT) {
             gameWon = false;
-        }else{
-            if(correctGuesses >= MAX_CORRECT){
+        } else {
+            if (correctGuesses >= MAX_CORRECT) {
                 gameWon = true;
-                endGame();
             }
         }
     }
-    
 
-   
     //Checks the user input against the correct word
     // time should be the current value of the game timer
     // if the word is correct this calls the next word and scrambles it
-    public boolean checkWord(String input, int time){
-        if(input.toLowerCase().equals(this.word.toLowerCase())){
-            if(correctGuesses == 0) scoreList[correctGuesses] = time;
-            else scoreList[correctGuesses] = time - scoreList[correctGuesses - 1];
-
+    public boolean checkWord(String input, int time) {
+        if (input.toLowerCase().equals(this.word.toLowerCase())) {
+            if (correctGuesses == 0) {
+                scoreList[correctGuesses] = time;
+            } else {
+                scoreList[correctGuesses] = time - scoreList[correctGuesses - 1];
+            }
             correctGuesses++;
-            checkState();
-            randomWord();
-            scrambleWord(word);
             return true;
-        }
-        else{
+        } else {
             incorrectGuesses++;
-            checkState();
             return false;
         }
     }
-    
+
     //Takes a String and creates a scrambled copy
     private String scrambleWord(String ar) {
         Random rnd = ThreadLocalRandom.current();
@@ -123,5 +149,5 @@ public class Game {
         word = randWord.getWord();
         return word; // to keep compiler happy
     }
-    
+
 }
