@@ -1,27 +1,27 @@
 DROP TABLE IF EXISTS `score`;
 
 CREATE TABLE `score` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `finalTime` int,
   `initials` varchar(3),
   `score` int,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `score` (id, finalTime, initials, score)
+INSERT INTO `score` (finalTime, initials, score)
 VALUES 
-(1, 10, 'gpg', 99),
-(2, 12, 'fds', 54),
-(3, 14, 'wer', 34),
-(4, 16, 'hgf', 23),
-(5, 12, 'dsf', 84),
-(6, 12, 'klj', 1),
-(7, 12, 'ghj', 2),
-(8, 12, 'dfg', 3),
-(9, 12, 'yt', 4),
-(10, 12, 'uy', 5),
-(11, 12, 'ty', 6),
-(12, 12, 'er', 7);
+(10, 'gpg', 99),
+(12, 'fds', 54),
+(14, 'wer', 34),
+(16, 'hgf', 23),
+(12, 'dsf', 84),
+(12, 'klj', 1),
+(12, 'ghj', 2),
+(12, 'dfg', 3),
+(12, 'yt', 4),
+(12, 'uy', 5),
+(12, 'ty', 6),
+(12, 'er', 7);
 
 DROP TABLE IF EXISTS `word`;
 
