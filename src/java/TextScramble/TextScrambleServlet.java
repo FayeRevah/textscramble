@@ -43,12 +43,13 @@ public class TextScrambleServlet extends HttpServlet {
             result=0;
         } else {
            String input = request.getParameter("guess");
+           int time = Integer.valueOf(request.getParameter("timeVar"));
            System.out.println("Scramble. guess="+input);
-           if (input==null) {
+               if (input==null) {
                result=0;
            } else
            {
-              result = game.playGame(input, 0);
+              result = game.playGame(input, time);
            }
            
         }

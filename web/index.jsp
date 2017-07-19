@@ -34,24 +34,21 @@
                 // Display the result in the element with id="timer"
                 document.getElementById("timer").innerHTML = hours + "h "
                         + minutes + "m " + seconds + "s ";
-
+                document.getElementById('timeVar').setAttribute('value', totalTime);
                 totalTime++;
 
             }, 1000);
-
-            function getTotalTime() {
-                return totalTime;
-            }
         </script>
         <div id="headerImg"><img class="headingImg" src="word-scrambler.svg" width="600"></div>
         <form action="TextScrambleServlet">
+            <input type="hidden" name="timeVar" id="timeVar" value = ""/>
             <p id="timer"></p>
             <p>Here is a scrambled word. Guess what it says.</p>
             <p id="word"><strong><%= request.getAttribute("word")%></strong><p>
             <div class="input"><input class="guessInput" type="text" name="guess" placeholder="Guess"><input class="submitBtn" type="submit"  value="Submit"></div>
         </form>
         <div align="center"><form action="Scores">
-            <input class="submitBtn" type="submit"  value="High Scores">
+                <input class="submitBtn" type="submit"  value="High Scores">
             </form></div>
         <div class="footer">
             Team++ (Jan Patrick Camaclang, Gregory Gonzalez, Faiga Revah, Ryan Westerhoff)
