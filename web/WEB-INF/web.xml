@@ -8,6 +8,14 @@
         <servlet-name>Scores</servlet-name>
         <servlet-class>TextScramble.Scores</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ScoresServlet</servlet-name>
+        <servlet-class>TextScramble.ScoresServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ScoresServlet</servlet-name>
+        <url-pattern>/ScoresServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Scores</servlet-name>
         <url-pattern>/Scores</url-pattern>

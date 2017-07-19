@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import javax.persistence.EntityTransaction;
 
 
 public class ScoreDB {
@@ -28,5 +29,20 @@ public class ScoreDB {
             em.close();
         }
         return scores;             
+    }
+    
+     public static void insert(Score score) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();        
+        try {
+            em.persist(score);
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
     }
 }
