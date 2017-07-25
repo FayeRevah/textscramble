@@ -22,7 +22,7 @@ public class Game {
     private String word;   // the word to be guessed 
     private Random generator; // the random generator
     private String scrambled; // scrambled word
-    private int[] scoreList; // an array to keep track of the time at which the user scored
+    private int time; //time on the game clock
     private int score; // the player's current score
     private int correctGuesses; // tracks this game's correct guesses
     private int incorrectGuesses; // tracks this game's incorrect guesses
@@ -43,6 +43,7 @@ public class Game {
     public int playGame(String guess, int gameTime) {
         
         if (checkWord(guess, gameTime) == true) {
+            time = gameTime;
             checkState();
             //1 continue game
             if (gameWon == false) {
@@ -95,11 +96,8 @@ public class Game {
     }
 
     private void calculateScore() {
-        int logVal = 1;
-        for (int i = 0; i < scoreList.length; i++) {
-            logVal += scoreList[i];
-        }
-        score = (int) (1000 * log(logVal));
+        score = (int)(correctGuesses * (1/log(time)) * 1000 - incorrectGuesses * 200);
+        if(score < 0) score = 0;
     }
 
     // to be called whenever a guess is made. Assesses game state
@@ -118,11 +116,6 @@ public class Game {
     // if the word is correct this calls the next word and scrambles it
     public boolean checkWord(String input, int time) {
         if (input.toLowerCase().equals(this.word.toLowerCase())) {
-            if (correctGuesses == 0) {
-                scoreList[correctGuesses] = time;
-            } else {
-                scoreList[correctGuesses] = time - scoreList[correctGuesses - 1];
-            }
             correctGuesses++;
             return true;
         } else {

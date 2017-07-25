@@ -21,8 +21,8 @@
     <body>
         <script id="countDownTimer">
             // initalize global timer
+            //var totalTime = document.getElementById('timeVar').getAttribute(value);
             var totalTime = 0;
-
             // Update the count down every 1 second
             var tick = setInterval(function () {
 
