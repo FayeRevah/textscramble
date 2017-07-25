@@ -43,7 +43,10 @@ public class TextScrambleServlet extends HttpServlet {
             result=0;
         } else {
            String input = request.getParameter("guess");
-           int time = Integer.valueOf(request.getParameter("timeVar"));
+           String timeStr = request.getParameter("timeVar");
+           if(timeStr == null)
+               timeStr = "0";
+           int time = Integer.valueOf(timeStr);
            System.out.println("Scramble. guess="+input);
                if (input==null) {
                result=0;
@@ -51,7 +54,6 @@ public class TextScrambleServlet extends HttpServlet {
            {
               result = game.playGame(input, time);
            }
-           
         }
         System.out.println("Scramble Result="+result+"\n");
        
@@ -59,6 +61,7 @@ public class TextScrambleServlet extends HttpServlet {
         {
             session.setAttribute("game", game);
             request.setAttribute("word", game.getScrambledWord());
+            request.setAttribute("timerValue", game.getTime());
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         if(result == 2)//game won

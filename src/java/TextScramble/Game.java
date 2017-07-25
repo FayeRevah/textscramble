@@ -40,43 +40,22 @@ public class Game {
     //2 game has been won
     //3 game has been lost
     //4 an error has occured
+    
+    public int getTime()
+    {
+        return time;
+    }
     public int playGame(String guess, int gameTime) {
-        
-        if (checkWord(guess, gameTime) == true) {
-            time = gameTime;
-            checkState();
-            //1 continue game
-            if (gameWon == false) {
-                word = randomWord();
-                scrambleWord(word);
-                return 1;
-            }
-            
-            //2 game won
-            if (gameWon == true) {
-                calculateScore();
-                return 2;
-            }
-
-        }else{
-            checkState();
-            
-            if(incorrectGuesses >= MAX_INCORRECT){
-                //3 game lost
-                return 3;
-            }else{
-                //1 guess wrong but game continues
-                return 1;
-            }
-        }
-        //Error cather
-        return 0;
+        time = gameTime;
+        checkWord(guess);
+        return checkState();
     }
 
     //Initalizes values for a new game
     public void newGame() {
         word = randomWord();
         scrambled = scrambleWord(word);
+        time = 0;
         score = 0;
         correctGuesses = 0;
         incorrectGuesses = 0;
@@ -101,25 +80,37 @@ public class Game {
     }
 
     // to be called whenever a guess is made. Assesses game state
-    private void checkState() {
+    private int checkState() {
         if (incorrectGuesses >= MAX_INCORRECT) {
             gameWon = false;
+            endGame();
+            return 3;
         } else {
             if (correctGuesses >= MAX_CORRECT) {
                 gameWon = true;
+                endGame();
+                return 2;
             }
         }
+        return 1;
     }
 
+    private void endGame()
+    {
+        calculateScore();
+    }
     //Checks the user input against the correct word
     // time should be the current value of the game timer
     // if the word is correct this calls the next word and scrambles it
-    public boolean checkWord(String input, int time) {
+    public boolean checkWord(String input) {
         if (input.toLowerCase().equals(this.word.toLowerCase())) {
             correctGuesses++;
+            randomWord();
+            scrambled = scrambleWord(word);
             return true;
         } else {
             incorrectGuesses++;
+            //checkState();
             return false;
         }
     }
