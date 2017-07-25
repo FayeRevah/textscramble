@@ -18,16 +18,17 @@ and open the template in the editor.
             <input type ="hidden" name="action" value="add">
             <input type="hidden" name="action" value="add">        
             <label class="pad_top">Initials:</label>
-            <input type="text" name="initials" value="${score.initials}" 
+            <input type="text" name="initials" value="${score.initials}" maxlength="3"
                required><br>
             <label class="pad_top">Final Score:</label>
-            <input type="text" name="finalScore" value="${score.finalScore}" 
-               required><br>
+            <p id="score" ><strong><%= request.getAttribute("finalScore")%></strong><p><br>
+            <input type="hidden" name="finalScore" value="<%= request.getAttribute("finalScore")%>"> 
             <label class="pad_top">Final Time:</label>
-            <input type="text" name="finalTime" value="${user.finalTime}"  
-               required><br>        
+            <p id="time"><strong><%= request.getAttribute("finalTime")%></strong><p><br>
+            <input type="hidden" name="finalTime" value="<%= request.getAttribute("finalTime")%>">
+            <br>        
             <label>&nbsp;</label>
-            <input type="submit" value="" class="margin_left">
+            <input type="submit" value="Submit" class="margin_left">
         </form>
         <div class="footer">
             Team++ (Jan Patrick Camaclang, Gregory Gonzalez, Faiga Revah, Ryan Westerhoff)

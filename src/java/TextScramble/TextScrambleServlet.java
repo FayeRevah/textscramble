@@ -64,6 +64,8 @@ public class TextScrambleServlet extends HttpServlet {
         if(result == 2)//game won
         {
             session.invalidate();
+            request.setAttribute("finalTime", Integer.valueOf(request.getParameter("timeVar")));
+            request.setAttribute("finalScore", game.getScore());
             getServletContext().getRequestDispatcher("/win.jsp").forward(request,response);
         }
         if(result == 3)//game lost
