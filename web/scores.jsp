@@ -34,7 +34,7 @@ Author: Gregory Gonzalez, Team++
                 <button class="submitBtn" type="submit"  value="Play Game">Play Game</button>
             </form>
         </div>
-        <div class="footer">
+        <div class="footer" style="position: absolute">
             Team++ (Jan Patrick Camaclang, Gregory Gonzalez, Faiga Revah, Ryan Westerhoff)
         </div>
     </body>

@@ -59,6 +59,8 @@ public class TextScrambleServlet extends HttpServlet {
         {
             session.setAttribute("game", game);
             request.setAttribute("word", game.getScrambledWord());
+            request.setAttribute("correct", game.getCorrect());
+            request.setAttribute("incorrect", game.getIncorrect());
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         if(result == 2)//game won

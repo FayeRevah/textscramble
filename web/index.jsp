@@ -41,8 +41,14 @@
         </script>
         <div id="headerImg"><img class="headingImg" src="word-scrambler.svg" width="600"></div>
         <form action="TextScrambleServlet">
-            <input type="hidden" name="timeVar" id="timeVar" value = ""/>
             <p id="timer"></p>
+            <input type="hidden" name="timeVar" id="timeVar" value = ""/>
+            <table style="width:100%;">
+                <tr>
+                  <th style="background-color: #92c9d4;"> <font style="color: black; font-family: 'Gill Sans';">Correct Guesses: <%= request.getAttribute("correct")%>/5</th>
+                  <th style="background-color: #92c9d4;"> <font style="color: black; font-family: 'Gill Sans';">Incorrect Guesses: <%= request.getAttribute("incorrect")%>/10</th>
+                </tr>
+            </table>
             <p>Here is a scrambled word. Guess what it says.</p>
             <p id="word"><strong><%= request.getAttribute("word")%></strong><p>
             <div class="input"><input class="guessInput" type="text" name="guess" placeholder="Guess"><input class="submitBtn" type="submit"  value="Submit"></div>

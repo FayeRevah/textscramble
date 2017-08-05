@@ -83,6 +83,14 @@ public class Game {
         gameWon = false;
     }
 
+    public int getCorrect(){
+        return correctGuesses;
+    }
+    
+    public int getIncorrect(){
+        return incorrectGuesses;
+    }
+    
     public int getScore() {
         return score;
     }
