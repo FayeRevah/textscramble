@@ -17,8 +17,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Game {
 
-    private static final int MAX_CORRECT = 5; // guesses needed to win
-    private static final int MAX_INCORRECT = 10; // guesses needed to lose
+    public static final int MAX_CORRECT = 5; // guesses needed to win
+    public static final int MAX_INCORRECT = 10; // guesses needed to lose
     private String word;   // the word to be guessed 
     private Random generator; // the random generator
     private String scrambled; // scrambled word
@@ -45,6 +45,7 @@ public class Game {
     {
         return time;
     }
+    
     public int playGame(String guess, int gameTime) {
         time = gameTime;
         checkWord(guess);
@@ -82,7 +83,7 @@ public class Game {
         return scrambled;
     }
 
-    private void calculateScore() {
+    public void calculateScore() {
         score = (int)(correctGuesses * (1/log(time)) * 1000 - incorrectGuesses * 200);
         if(score < 0) score = 0;
     }
@@ -124,7 +125,7 @@ public class Game {
     }
 
     //Takes a String and creates a scrambled copy
-    private String scrambleWord(String ar) {
+    public String scrambleWord(String ar) {
         Random rnd = ThreadLocalRandom.current();
         char[] temp = ar.toCharArray();
         for (int i = ar.length() - 1; i > 0; i--) {
@@ -135,13 +136,27 @@ public class Game {
         }
         return new String(temp);
     }
-
+    
+    public void setScrambled(String scramb)
+    {
+        scrambled = scramb;
+    }
 
     //Retrieves a random word from the DB
     private String randomWord() {
         Word randWord = WordDB.selectUser(generator.nextInt(100) + 1);
         word = randWord.getWord();
         return word; // to keep compiler happy
+    }
+    
+    public void setWord(String wrd)
+    {
+        word = wrd;
+    }
+    
+    public boolean getGameWon()
+    {
+        return gameWon;
     }
 
 }
